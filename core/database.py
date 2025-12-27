@@ -265,6 +265,26 @@ def seed_demo_data():
         VALUES (?, ?, ?, ?, ?, ?, ?)
     """, demo_patients)
 
+    # Demo inpatient data with clinical information
+    demo_inpatient_data = [
+        # John Smith (p1) - Ischemic stroke, moderate fall risk, on anticoagulants
+        ("p1", "Ischemic", "Moderate", "Pass", 1,
+         """68-year-old male admitted with sudden onset right-sided weakness and speech difficulty. CT head showed acute left MCA territory ischemic stroke. Patient received IV tPA within 3-hour window with partial symptom improvement. MRI confirmed infarct in left frontal and temporal regions. Echocardiogram revealed atrial fibrillation, likely cardioembolic source. Started on apixaban for stroke prevention. Swallow screen passed. PT/OT consulted - patient ambulating with walker, moderate fall risk due to right leg weakness. Speech therapy for mild expressive aphasia. Blood pressure controlled on amlodipine and lisinopril. Patient educated on stroke warning signs and medication compliance. Discharge to home with outpatient PT/OT and neurology follow-up in 2 weeks."""),
+
+        # Mary Chen (p2) - Hemorrhagic stroke, high fall risk, NOT on anticoagulants
+        ("p2", "Hemorrhagic", "High", "Fail", 0,
+         """72-year-old female presented with severe headache, nausea, and left-sided weakness. CT head revealed right basal ganglia hemorrhage approximately 3cm with mild midline shift. Blood pressure critically elevated at 210/115 on arrival, now controlled with IV nicardipine transitioned to oral agents. Neurosurgery consulted, no surgical intervention needed. Dysphagia screen failed - NGT placed, speech therapy recommends pureed diet with thickened liquids. High fall risk due to left hemiparesis and impaired balance. Patient requires moderate assist for transfers. CTA head/neck showed no aneurysm or AVM. Hemorrhage attributed to uncontrolled hypertension. Patient not candidate for anticoagulation. PT/OT recommend acute rehab placement but family requesting home discharge with home health. Extensive counseling provided regarding fall risks and aspiration precautions."""),
+
+        # Carlos Ruiz (p3) - TIA, low fall risk, on anticoagulants
+        ("p3", "TIA", "Low", "Pass", 1,
+         """55-year-old male with history of hypertension and diabetes presented with transient right arm numbness and facial droop lasting 15 minutes, completely resolved on arrival. MRI brain showed no acute infarct but multiple old lacunar infarcts suggesting chronic small vessel disease. Carotid ultrasound revealed 70% stenosis of left internal carotid artery. Cardiology workup negative for atrial fibrillation. Started on dual antiplatelet therapy (aspirin and clopidogrel) for 21 days then transition to single agent. Blood pressure optimized, HbA1c elevated at 8.2% - diabetes management intensified. Patient ambulating independently, no fall risk. Swallow screen passed. Neurology recommends carotid endarterectomy vs stenting within 2 weeks. Extensive stroke education provided. Patient and family understand TIA is warning sign. Discharge to inpatient rehab for intensive PT/OT prior to vascular procedure. Scheduled for vascular surgery consultation and neurology follow-up.""")
+    ]
+
+    cursor.executemany("""
+        INSERT INTO inpatient_data (patient_id, stroke_type, fall_risk, dysphagia, anticoagulant, hospital_summary)
+        VALUES (?, ?, ?, ?, ?, ?)
+    """, demo_inpatient_data)
+
     # Initialize workflow states for demo patients
     for patient_id, _, _, _, _, _, _ in demo_patients:
         # First two patients have intake/generate done, third is finalized
@@ -281,10 +301,19 @@ def seed_demo_data():
                 VALUES (?, 1, 1, 0, 0, 0)
             """, (patient_id,))
 
-    # Add initial audit log entry
+    # Add initial audit log entries
     cursor.execute("""
         INSERT INTO audit_log (message) VALUES ('Database initialized with demo data')
     """)
+    cursor.execute("""
+        INSERT INTO audit_log (patient_id, message) VALUES ('p1', 'John Smith: Clinical data imported')
+    """)
+    cursor.execute("""
+        INSERT INTO audit_log (patient_id, message) VALUES ('p2', 'Mary Chen: Clinical data imported')
+    """)
+    cursor.execute("""
+        INSERT INTO audit_log (patient_id, message) VALUES ('p3', 'Carlos Ruiz: Clinical data imported')
+    """)
 
     conn.commit()
-    print(f"✓ Seeded database with {len(demo_patients)} demo patients")
+    print(f"✓ Seeded database with {len(demo_patients)} demo patients and clinical data")
