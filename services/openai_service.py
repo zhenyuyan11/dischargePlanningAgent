@@ -493,9 +493,9 @@ REQUIRED CHANGES:
 
 TASK:
 Regenerate the ENTIRE "{target_section}" section by:
-1. **Applying the required changes** specified in the QC suggestion above
-2. **Preserving good content** - Keep existing information that is accurate and not mentioned in the suggestion
-3. **Integrating changes naturally** - Don't just append; weave changes into the section smoothly
+1. **MUST INCLUDE the required changes** - The content from "REQUIRED CHANGES" above MUST appear in your output
+2. **Preserving good content** - Keep existing accurate information that doesn't conflict with the required changes
+3. **Integrating changes naturally** - Weave the required changes seamlessly into the section
 
 SECTION REQUIREMENTS:
 {section_guidance}
@@ -513,11 +513,11 @@ CRITICAL RULES:
 - Do NOT include section headers like "===MOBILITY==="
 - Do NOT include titles like "Medications for [Patient Name]"
 - Start directly with the content (bullet points or paragraphs)
-- If current section is empty/placeholder, generate complete section from scratch
-- If current section has content, preserve unchanged parts and integrate changes smoothly
+- **MANDATORY**: The "REQUIRED CHANGES" content MUST be included in your regenerated section
+- If current section is empty/placeholder, generate complete section from scratch including the required changes
+- If current section has content, integrate the required changes while preserving non-conflicting existing content
 - Do NOT duplicate information from other sections
-- Make changes ONLY for what's mentioned in the QC suggestion
-- Keep everything else that's working well
+- The required changes should flow naturally within the section, not appear as a separate appendix
 
 OUTPUT (content only, no titles or headers):"""
 
