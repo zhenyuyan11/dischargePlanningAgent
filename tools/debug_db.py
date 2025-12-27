@@ -152,7 +152,7 @@ def reset_database():
         os.remove(DB_PATH)
         print("✓ Database deleted")
 
-    from database import init_database
+    from core.database import init_database
     init_database()
     print("✓ Database recreated with demo data")
 
