@@ -1209,6 +1209,57 @@ def render_audit_tab():
 def main():
     st.set_page_config(page_title="dischargePlanningAgent", layout="wide")
 
+    # Global font size configuration via CSS
+    st.markdown("""
+        <style>
+        /* Global font size adjustments */
+        html, body, [class*="css"] {
+            font-size: 16px;  /* Base font size - adjust this value */
+        }
+
+        /* Headings */
+        h1 { font-size: 2.0rem !important; }
+        h2 { font-size: 1.6rem !important; }
+        h3 { font-size: 1.3rem !important; }
+        h4 { font-size: 1.1rem !important; }
+
+        /* Body text */
+        p, div, span, label {
+            font-size: 1.0rem !important;
+        }
+
+        /* Buttons */
+        .stButton button {
+            font-size: 0.95rem !important;
+        }
+
+        /* Input fields */
+        input, textarea, select {
+            font-size: 0.95rem !important;
+        }
+
+        /* Sidebar */
+        [data-testid="stSidebar"] {
+            font-size: 0.9rem !important;
+        }
+
+        /* Tables */
+        table {
+            font-size: 0.9rem !important;
+        }
+
+        /* Code blocks */
+        code {
+            font-size: 0.9rem !important;
+        }
+
+        /* Captions */
+        .caption {
+            font-size: 0.85rem !important;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
     # Initialize database on first run
     init_database()
 
