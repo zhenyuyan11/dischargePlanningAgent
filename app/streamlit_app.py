@@ -454,7 +454,7 @@ def render_sidebar():
 
     filtered = [p for p in st.session_state.patients if matches(p)]
 
-    st.sidebar.caption(f"Patient List ({len(filtered)} patients)")
+    st.sidebar.markdown(f"**Patient List** · {len(filtered)} patients")
 
     if not filtered:
         st.sidebar.info("No patients match filters.")
@@ -465,36 +465,92 @@ def render_sidebar():
     if current not in [p.patient_id for p in filtered]:
         st.session_state.selected_patient_id = filtered[0].patient_id
 
-    # Create table-like display with Name and MRN columns
-    # Use a container with fixed height for scrolling
-    with st.sidebar.container(height=350):
-        # Table header
-        col1, col2 = st.columns([2, 1])
-        with col1:
-            st.markdown("**Name**")
-        with col2:
-            st.markdown("**MRN**")
-        st.divider()
+    # Custom CSS for professional patient cards
+    st.sidebar.markdown("""
+        <style>
+        .patient-card {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border: 1px solid #e0e0e0;
+            background: white;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .patient-card:hover {
+            border-color: #1f77b4;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .patient-card-selected {
+            border: 2px solid #1f77b4;
+            background: #f0f7ff;
+            box-shadow: 0 2px 8px rgba(31,119,180,0.2);
+        }
+        .patient-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: #1a1a1a;
+            margin-bottom: 4px;
+        }
+        .patient-mrn {
+            font-size: 12px;
+            color: #666;
+            font-family: monospace;
+        }
+        .patient-status {
+            font-size: 11px;
+            color: #888;
+            margin-top: 4px;
+        }
+        .status-dot {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 6px;
+        }
+        .status-green { background-color: #52c41a; }
+        .status-yellow { background-color: #faad14; }
+        .status-red { background-color: #f5222d; }
+        </style>
+    """, unsafe_allow_html=True)
 
-        # Table rows - clickable patient list
+    # Use a container with fixed height for scrolling
+    with st.sidebar.container(height=400):
         for p in filtered:
             is_selected = p.patient_id == st.session_state.selected_patient_id
 
-            # Create a clickable row
-            col1, col2 = st.columns([2, 1])
-            with col1:
-                # Show patient name
-                if is_selected:
-                    st.markdown(f"**→ {p.name}**")
-                else:
-                    if st.button(p.name, key=f"name_{p.patient_id}", use_container_width=True):
-                        st.session_state.selected_patient_id = p.patient_id
-                        st.session_state.workflow = get_workflow_state(p.patient_id)
-                        log(f"Selected patient → {p.name}")
-                        st.rerun()
-            with col2:
-                # Show MRN
-                st.caption(p.mrn)
+            # QC status indicator
+            qc_color = {
+                "GREEN": "green",
+                "YELLOW": "yellow",
+                "RED": "red"
+            }.get(p.qc_status, "yellow")
+
+            # Create patient card with HTML for better styling
+            if is_selected:
+                st.markdown(f"""
+                    <div class="patient-card patient-card-selected">
+                        <div class="patient-name">✓ {p.name}</div>
+                        <div class="patient-mrn">MRN: {p.mrn}</div>
+                        <div class="patient-status">
+                            <span class="status-dot status-{qc_color}"></span>
+                            {p.disposition} · {p.wf_status}
+                        </div>
+                    </div>
+                """, unsafe_allow_html=True)
+            else:
+                # Clickable card for non-selected patients
+                if st.button(
+                    f"{p.name}\nMRN: {p.mrn}\n{p.disposition} · {p.wf_status}",
+                    key=f"patient_{p.patient_id}",
+                    use_container_width=True,
+                    type="secondary"
+                ):
+                    st.session_state.selected_patient_id = p.patient_id
+                    st.session_state.workflow = get_workflow_state(p.patient_id)
+                    log(f"Selected patient → {p.name}")
+                    st.rerun()
 
     st.sidebar.divider()
 
