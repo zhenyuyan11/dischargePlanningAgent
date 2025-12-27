@@ -317,7 +317,7 @@ def _apply_qc_suggestion(p: Patient, flag: QCFlag, content: str):
         resolve_qc_flag(flag.id)
 
         # Recalculate QC status
-        from db_operations import get_qc_flags
+        from services.db_operations import get_qc_flags
         unresolved_flags = get_qc_flags(p.patient_id, resolved=False)
         remaining_flags = [f for f in unresolved_flags if f.id != flag.id]
 
@@ -332,7 +332,7 @@ def _apply_qc_suggestion(p: Patient, flag: QCFlag, content: str):
         p.qc_status = new_status
 
         # Update workflow state
-        from db_operations import check_qc_clearance
+        from services.db_operations import check_qc_clearance
         if check_qc_clearance(p.patient_id):
             update_workflow_state(p.patient_id, qc_clearance_done=True)
             st.session_state.workflow["qc_clearance_done"] = True
@@ -398,7 +398,7 @@ def get_patient(pid: str) -> Patient:
         if p.patient_id == pid:
             return p
     # Fallback: reload from database
-    from db_operations import get_patient as db_get_patient
+    from services.db_operations import get_patient as db_get_patient
     p = db_get_patient(pid)
     if p:
         return p
@@ -822,7 +822,7 @@ def render_qc_tab(p: Patient):
                 p.qc_status = qc_status
 
                 # Check QC clearance
-                from db_operations import check_qc_clearance
+                from services.db_operations import check_qc_clearance
                 if check_qc_clearance(p.patient_id):
                     update_workflow_state(p.patient_id, qc_clearance_done=True)
                     st.session_state.workflow["qc_clearance_done"] = True
