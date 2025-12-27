@@ -253,11 +253,11 @@ def seed_demo_data():
     conn = DatabaseConnection.get_connection()
     cursor = conn.cursor()
 
-    # Demo patients
+    # Demo patients - all start in Draft status with no QC done yet
     demo_patients = [
         ("p1", "John Smith", "123456", "EN", "Home", "YELLOW", "Draft"),
-        ("p2", "Mary Chen", "234567", "EN", "Home", "RED", "Draft"),
-        ("p3", "Carlos Ruiz", "345678", "ES", "Rehab", "GREEN", "Finalized"),
+        ("p2", "Mary Chen", "234567", "EN", "Home", "YELLOW", "Draft"),
+        ("p3", "Carlos Ruiz", "345678", "ES", "Rehab", "YELLOW", "Draft"),
     ]
 
     cursor.executemany("""
@@ -285,21 +285,13 @@ def seed_demo_data():
         VALUES (?, ?, ?, ?, ?, ?)
     """, demo_inpatient_data)
 
-    # Initialize workflow states for demo patients
+    # Initialize workflow states for demo patients - all start fresh (all flags = 0)
     for patient_id, _, _, _, _, _, _ in demo_patients:
-        # First two patients have intake/generate done, third is finalized
-        if patient_id == "p3":
-            cursor.execute("""
-                INSERT INTO workflow_state
-                (patient_id, hospital_summary_done, ai_generation_done, qc_analysis_done, qc_clearance_done, final_approval_done)
-                VALUES (?, 1, 1, 1, 1, 1)
-            """, (patient_id,))
-        else:
-            cursor.execute("""
-                INSERT INTO workflow_state
-                (patient_id, hospital_summary_done, ai_generation_done, qc_analysis_done, qc_clearance_done, final_approval_done)
-                VALUES (?, 1, 1, 0, 0, 0)
-            """, (patient_id,))
+        cursor.execute("""
+            INSERT INTO workflow_state
+            (patient_id, hospital_summary_done, ai_generation_done, qc_analysis_done, qc_clearance_done, final_approval_done)
+            VALUES (?, 0, 0, 0, 0, 0)
+        """, (patient_id,))
 
     # Add initial audit log entries
     cursor.execute("""
