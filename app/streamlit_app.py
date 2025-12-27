@@ -6,6 +6,11 @@
 #
 # Run: streamlit run app/streamlit_app.py
 
+# Add parent directory to Python path for imports
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+
 import streamlit as st
 from datetime import datetime
 from typing import Dict, List, Optional
