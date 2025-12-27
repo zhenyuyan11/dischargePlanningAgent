@@ -454,35 +454,47 @@ def render_sidebar():
 
     filtered = [p for p in st.session_state.patients if matches(p)]
 
-    st.sidebar.caption("Patient List")
-    # Render as radio list to choose patient
-    patient_labels = [
-        f"{qc_badge(p.qc_status)} {p.name}  •  {p.mrn}  •  {p.wf_status}"
-        for p in filtered
-    ]
-    patient_ids = [p.patient_id for p in filtered]
+    st.sidebar.caption(f"Patient List ({len(filtered)} patients)")
 
-    if not patient_ids:
+    if not filtered:
         st.sidebar.info("No patients match filters.")
         return
 
     # Keep selection stable
     current = st.session_state.selected_patient_id
-    if current not in patient_ids:
-        st.session_state.selected_patient_id = patient_ids[0]
+    if current not in [p.patient_id for p in filtered]:
+        st.session_state.selected_patient_id = filtered[0].patient_id
 
-    idx = patient_ids.index(st.session_state.selected_patient_id)
-    chosen_label = st.sidebar.radio("Select a patient", patient_labels, index=idx)
+    # Create table-like display with Name and MRN columns
+    # Use a container with fixed height for scrolling
+    with st.sidebar.container(height=350):
+        # Table header
+        col1, col2 = st.columns([2, 1])
+        with col1:
+            st.markdown("**Name**")
+        with col2:
+            st.markdown("**MRN**")
+        st.divider()
 
-    # Map label back to id
-    chosen_id = patient_ids[patient_labels.index(chosen_label)]
-    if chosen_id != st.session_state.selected_patient_id:
-        st.session_state.selected_patient_id = chosen_id
-        # Reload workflow state for the newly selected patient
-        st.session_state.workflow = get_workflow_state(chosen_id)
-        log(f"Selected patient → {get_patient(chosen_id).name}")
-        # Keep tab fixed; just rerun to refresh header & tabs
-        st.rerun()
+        # Table rows - clickable patient list
+        for p in filtered:
+            is_selected = p.patient_id == st.session_state.selected_patient_id
+
+            # Create a clickable row
+            col1, col2 = st.columns([2, 1])
+            with col1:
+                # Show patient name
+                if is_selected:
+                    st.markdown(f"**→ {p.name}**")
+                else:
+                    if st.button(p.name, key=f"name_{p.patient_id}", use_container_width=True):
+                        st.session_state.selected_patient_id = p.patient_id
+                        st.session_state.workflow = get_workflow_state(p.patient_id)
+                        log(f"Selected patient → {p.name}")
+                        st.rerun()
+            with col2:
+                # Show MRN
+                st.caption(p.mrn)
 
     st.sidebar.divider()
 
