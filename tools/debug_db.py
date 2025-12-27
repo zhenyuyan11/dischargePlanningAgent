@@ -6,7 +6,7 @@ Run: python3 debug_db.py
 import sqlite3
 from pathlib import Path
 
-DB_PATH = Path(__file__).parent / "stroke_discharge.db"
+DB_PATH = Path(__file__).parent.parent / "stroke_discharge.db"
 
 def print_section(title):
     print(f"\n{'='*60}")

@@ -14,7 +14,7 @@ from reportlab.platypus.flowables import KeepTogether
 from reportlab.lib.enums import TA_LEFT, TA_CENTER, TA_RIGHT
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
-from models import Patient, InpatientData, DischargePlan, FinalizationData
+from core.models import Patient, InpatientData, DischargePlan, FinalizationData
 
 
 class DischargePlanPDFGenerator:

@@ -52,14 +52,14 @@ OPENAI_API_KEY=your-openai-api-key-here
 
 4. Run the application:
 ```bash
-streamlit run streamlit_app.py
+streamlit run app/streamlit_app.py
 ```
 
 5. Open your browser to `http://localhost:8501`
 
 ## Configuration
 
-Edit `config.py` to customize:
+Edit `core/config.py` to customize:
 - Hospital name
 - PDF styling (colors, fonts)
 - Emergency contact numbers
@@ -109,15 +109,25 @@ The current SQLite setup is suitable for:
 
 ```
 dischargePlanningAgent/
-├── streamlit_app.py      # Main Streamlit application
-├── config.py             # Configuration settings
-├── database.py           # Database initialization
-├── db_operations.py      # Database CRUD operations
-├── models.py             # Data models
-├── openai_service.py     # OpenAI integration
-├── pdf_generator.py      # PDF export functionality
+├── app/                  # Application entry points
+│   └── streamlit_app.py  # Main Streamlit application
+├── core/                 # Core foundation layer
+│   ├── models.py         # Data models
+│   ├── config.py         # Configuration settings
+│   └── database.py       # Database initialization
+├── services/             # Business logic layer
+│   ├── db_operations.py  # Database CRUD operations
+│   ├── openai_service.py # OpenAI integration
+│   └── pdf_generator.py  # PDF export functionality
+├── tools/                # Development & debugging tools
+│   ├── test_openai.py    # OpenAI API testing
+│   ├── debug_db.py       # Database debugging
+│   └── debug_generation.py # Generation debugging
+├── docs/                 # Documentation
+│   └── DEPLOYMENT.md     # Deployment guide
+├── .streamlit/           # Streamlit configuration
 ├── requirements.txt      # Python dependencies
-├── DEPLOYMENT.md         # Deployment guide
+├── README.md             # This file
 └── .env                  # Environment variables (not in repo)
 ```
 

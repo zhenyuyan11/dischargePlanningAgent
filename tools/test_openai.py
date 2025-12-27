@@ -2,9 +2,9 @@
 """Test script to verify OpenAI discharge plan generation"""
 
 import sys
-from config import OPENAI_API_KEY, validate_config
-from openai_service import DischargePlanGenerator
-from db_operations import get_patient, get_inpatient_data
+from core.config import OPENAI_API_KEY, validate_config
+from services.openai_service import DischargePlanGenerator
+from services.db_operations import get_patient, get_inpatient_data
 
 def test_generation():
     """Test generating a discharge plan for patient MRN001"""

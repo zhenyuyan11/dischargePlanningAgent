@@ -2,8 +2,8 @@
 # CRUD operations for all database entities
 from typing import List, Optional, Dict
 from datetime import datetime
-from database import DatabaseConnection
-from models import Patient, InpatientData, DischargePlan, PlanSection, AuditEvent, QCFlag, FinalizationData
+from core.database import DatabaseConnection
+from core.models import Patient, InpatientData, DischargePlan, PlanSection, AuditEvent, QCFlag, FinalizationData
 
 # ========================================
 # Patient Operations

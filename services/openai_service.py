@@ -4,7 +4,7 @@
 import time
 from openai import OpenAI
 from typing import Dict, List
-from models import Patient, InpatientData, QCFlag
+from core.models import Patient, InpatientData, QCFlag
 
 
 class DischargePlanGenerator:

@@ -47,7 +47,7 @@ git push -u origin main
 1. Go to https://share.streamlit.io
 2. Click "New app"
 3. Select your GitHub repository
-4. Main file path: `streamlit_app.py`
+4. Main file path: `app/streamlit_app.py`
 5. Click "Deploy"
 
 ### Step 3: Add Secrets

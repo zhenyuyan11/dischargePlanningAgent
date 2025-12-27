@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """Debug script to see the raw OpenAI response"""
 
-from config import OPENAI_API_KEY
-from openai_service import DischargePlanGenerator
-from db_operations import get_patient, get_inpatient_data
+from core.config import OPENAI_API_KEY
+from services.openai_service import DischargePlanGenerator
+from services.db_operations import get_patient, get_inpatient_data
 
 # Load patient data
 patient = get_patient("p1")

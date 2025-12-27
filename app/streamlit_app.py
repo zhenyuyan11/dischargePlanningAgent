@@ -4,7 +4,7 @@
 # - Main: patient header card + workflow stepper + tabs
 # - Tabs: Patient Info / Generate / QC Review / Plan Editor / Finalize / Export / Audit Log
 #
-# Run: streamlit run streamlit_app.py
+# Run: streamlit run app/streamlit_app.py
 
 import streamlit as st
 from datetime import datetime
@@ -12,10 +12,11 @@ from typing import Dict, List, Optional
 import random
 
 # Database imports
-from database import init_database
-from config import OPENAI_API_KEY
-from openai_service import DischargePlanGenerator
-from db_operations import (
+from core.database import init_database
+from core.config import OPENAI_API_KEY
+from core.models import Patient, InpatientData, DischargePlan, AuditEvent, FinalizationData, QCFlag
+from services.openai_service import DischargePlanGenerator
+from services.db_operations import (
     get_all_patients, create_patient, update_patient,
     save_inpatient_data, get_inpatient_data,
     create_discharge_plan, get_current_plan, update_plan_section, get_plan_sections,
@@ -24,7 +25,6 @@ from db_operations import (
     save_finalization_data, get_finalization_data,
     create_qc_flag, get_qc_flags, resolve_qc_flag
 )
-from models import Patient, InpatientData, DischargePlan, AuditEvent, FinalizationData, QCFlag
 
 # -----------------------------
 # Helper Functions
@@ -1083,7 +1083,7 @@ def render_finalize_tab(p: Patient):
     if st.button("📄 Download Discharge Plan (PDF)", type="primary"):
         try:
             # Import PDF generator
-            from pdf_generator import DischargePlanPDFGenerator
+            from services.pdf_generator import DischargePlanPDFGenerator
 
             # Generate PDF
             with st.spinner("🔄 Generating PDF..."):
