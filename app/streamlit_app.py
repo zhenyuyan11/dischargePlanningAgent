@@ -562,7 +562,7 @@ def render_sidebar():
 # -----------------------------
 def render_header(p: Patient):
     # Patient header card (fixed above tabs)
-    st.markdown(f"<h3 style='font-size: 2rem !important;'>{p.name}</h3>", unsafe_allow_html=True)
+    st.markdown(f"<h2 style='font-size: 2.5rem !important; margin-bottom: 0.5rem;'>{p.name}</h2>", unsafe_allow_html=True)
     left, right = st.columns([3, 1])
     with left:
         st.markdown(
