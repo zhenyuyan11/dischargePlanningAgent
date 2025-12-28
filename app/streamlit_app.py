@@ -476,6 +476,7 @@ def render_sidebar():
             background: white;
             cursor: pointer;
             transition: all 0.2s;
+            text-align: left;
         }
         .patient-card:hover {
             border-color: #1f77b4;
