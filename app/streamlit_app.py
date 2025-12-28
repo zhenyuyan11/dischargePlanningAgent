@@ -579,31 +579,30 @@ def render_tabs(p: Patient):
     # We emulate "active tab" with session_state + a top segmented control.
     tab_names = ["Patient Info", "Generate", "QC Review", "Plan Editor", "Finalize / Export", "Audit Log"]
 
-    # Custom CSS for card-style tabs (like reference image)
+    # Custom CSS for clean underline tab style
     st.markdown("""
         <style>
         /* Style the radio group container */
         div[role="radiogroup"][aria-label="Tabs"] {
+            border-bottom: 2px solid #e0e0e0;
             margin-bottom: 1.5rem;
-            display: flex;
-            gap: 12px;
         }
 
-        /* Card-style tabs */
+        /* Clean minimal tabs */
         div[role="radiogroup"][aria-label="Tabs"] label {
-            padding: 16px 28px !important;
-            margin-right: 0 !important;
-            margin-bottom: 0 !important;
-            border: 1px solid #e0e0e0 !important;
-            border-radius: 12px !important;
-            background: white !important;
+            padding: 12px 24px !important;
+            margin-right: 8px !important;
+            margin-bottom: -2px !important;
+            border: none !important;
+            border-bottom: 3px solid transparent !important;
+            border-radius: 0 !important;
+            background: transparent !important;
             cursor: pointer !important;
-            transition: all 0.25s ease !important;
+            transition: all 0.2s ease !important;
             display: inline-block !important;
             font-size: 15px !important;
             font-weight: 500 !important;
-            color: #666 !important;
-            box-shadow: 0 1px 3px rgba(0,0,0,0.08) !important;
+            color: #999 !important;
         }
 
         /* Hide radio input circles */
@@ -616,24 +615,21 @@ def render_tabs(p: Patient):
             display: none !important;
         }
 
-        /* Selected tab style - solid blue background */
+        /* Selected tab style - bold underline */
         div[role="radiogroup"][aria-label="Tabs"] label:has(input:checked) {
-            background: #1f77b4 !important;
-            border: 1px solid #1f77b4 !important;
-            color: white !important;
-            font-weight: 600 !important;
-            box-shadow: 0 2px 6px rgba(31, 119, 180, 0.3) !important;
+            background: transparent !important;
+            border-bottom: 3px solid #000 !important;
+            color: #000 !important;
+            font-weight: 700 !important;
         }
 
         /* Hover effects */
         div[role="radiogroup"][aria-label="Tabs"] label:hover {
-            border-color: #1f77b4 !important;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.12) !important;
+            color: #555 !important;
         }
 
         div[role="radiogroup"][aria-label="Tabs"] label:has(input:checked):hover {
-            background: #1a6ba8 !important;
-            border-color: #1a6ba8 !important;
+            color: #000 !important;
         }
         </style>
     """, unsafe_allow_html=True)
