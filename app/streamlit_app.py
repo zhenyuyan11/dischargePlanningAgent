@@ -582,36 +582,51 @@ def render_tabs(p: Patient):
     # Custom CSS for tab-style radio buttons
     st.markdown("""
         <style>
-        /* Hide radio button circles */
-        div[data-testid="stHorizontalBlock"] div[role="radiogroup"] label div[data-testid="stMarkdownContainer"] p {
-            padding: 10px 20px;
-            border: 1px solid #ddd;
-            border-bottom: 2px solid #ddd;
-            border-radius: 8px 8px 0 0;
-            margin-right: 4px;
-            background: #f8f9fa;
-            cursor: pointer;
-            transition: all 0.2s;
+        /* Style the radio group container */
+        div[role="radiogroup"][aria-label="Tabs"] {
+            border-bottom: 1px solid #ddd;
+            margin-bottom: -1px;
         }
-        /* Selected tab */
-        div[data-testid="stHorizontalBlock"] div[role="radiogroup"] label:has(input:checked) div[data-testid="stMarkdownContainer"] p {
-            background: white;
-            border-bottom: 2px solid white;
-            color: #1f77b4;
-            font-weight: 600;
-            position: relative;
-            z-index: 1;
+
+        /* Hide radio circles and style labels as tabs */
+        div[role="radiogroup"][aria-label="Tabs"] label {
+            padding: 12px 24px !important;
+            margin-right: 4px !important;
+            margin-bottom: 0 !important;
+            border: 1px solid #ddd !important;
+            border-bottom: 2px solid #ddd !important;
+            border-radius: 8px 8px 0 0 !important;
+            background: #f8f9fa !important;
+            cursor: pointer !important;
+            transition: all 0.2s !important;
+            display: inline-block !important;
         }
-        /* Hover effect */
-        div[data-testid="stHorizontalBlock"] div[role="radiogroup"] label div[data-testid="stMarkdownContainer"] p:hover {
-            background: #e9ecef;
+
+        /* Hide radio input circles */
+        div[role="radiogroup"][aria-label="Tabs"] input[type="radio"] {
+            opacity: 0 !important;
+            position: absolute !important;
+            width: 0 !important;
+            height: 0 !important;
         }
-        div[data-testid="stHorizontalBlock"] div[role="radiogroup"] label:has(input:checked) div[data-testid="stMarkdownContainer"] p:hover {
-            background: white;
+
+        /* Selected tab style */
+        div[role="radiogroup"][aria-label="Tabs"] label:has(input:checked) {
+            background: white !important;
+            border-bottom: 2px solid white !important;
+            color: #1f77b4 !important;
+            font-weight: 600 !important;
+            position: relative !important;
+            z-index: 1 !important;
         }
-        /* Hide the actual radio buttons */
-        div[data-testid="stHorizontalBlock"] div[role="radiogroup"] input[type="radio"] {
-            display: none;
+
+        /* Hover effects */
+        div[role="radiogroup"][aria-label="Tabs"] label:hover {
+            background: #e9ecef !important;
+        }
+
+        div[role="radiogroup"][aria-label="Tabs"] label:has(input:checked):hover {
+            background: white !important;
         }
         </style>
     """, unsafe_allow_html=True)
