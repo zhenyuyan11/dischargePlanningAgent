@@ -437,7 +437,7 @@ def render_stepper(wf: Dict[str, bool]):
 # Sidebar (fixed)
 # -----------------------------
 def render_sidebar():
-    st.sidebar.header("Patients")
+    st.sidebar.header("AI-Driven Personalized Discharge Planning")
 
     q = st.sidebar.text_input("🔍 Patient Search (Name / MRN)", value="")
     qc_filter = st.sidebar.selectbox("QC Status", ["All", "Green", "Yellow", "Red"], index=0)
@@ -566,8 +566,9 @@ def render_header(p: Patient):
     left, right = st.columns([3, 1])
     with left:
         st.markdown(
-            f"**{p.name}**  \n"
-            f"MRN: `{p.mrn}` • Lang: `{p.language}` • Disposition: `{p.disposition}`"
+            f"<span style='font-size: 2rem !important; font-weight: bold; line-height: 1.2;'>{p.name}</span>  \n"
+            f"MRN: `{p.mrn}` • Lang: `{p.language}` • Disposition: `{p.disposition}`",
+            unsafe_allow_html=True
         )
     with right:
         st.markdown(f"**QC:** {qc_badge(p.qc_status)} `{p.qc_status}`")
