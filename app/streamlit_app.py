@@ -619,9 +619,9 @@ def render_tabs(p: Patient):
         /* Selected tab style */
         div[role="radiogroup"][aria-label="Tabs"] label:has(input:checked) {
             background: transparent !important;
-            border-bottom: 3px solid #1f77b4 !important;
+            border-bottom: 4px solid #1f77b4 !important;
             color: #1f77b4 !important;
-            font-weight: 600 !important;
+            font-weight: 700 !important;
             position: relative !important;
         }
 
