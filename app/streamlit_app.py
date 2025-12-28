@@ -881,6 +881,14 @@ def render_generate_tab(p: Patient):
 
 def render_qc_tab(p: Patient):
     st.subheader("QC Review")
+
+    # Check if discharge plan exists
+    current_plan = get_current_plan(p.patient_id)
+    if not current_plan:
+        st.info("📋 No discharge plan generated yet.")
+        st.markdown("Please navigate to the **Generate** tab to create a discharge plan first.")
+        return
+
     status = p.qc_status
     if status == "GREEN":
         st.success("🟢 GREEN — All safety checks passed. Ready to finalize.")

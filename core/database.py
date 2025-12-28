@@ -255,16 +255,16 @@ def seed_demo_data():
 
     # Demo patients - diverse demographics, dispositions, and languages
     demo_patients = [
-        ("p001", "John Smith", "MRN001234", "EN", "Home", "YELLOW", "Draft"),
-        ("p002", "Maria Garcia", "MRN002567", "ES", "Rehab", "YELLOW", "Draft"),
-        ("p003", "Wei Chen", "MRN003891", "ZH", "Home", "YELLOW", "Draft"),
-        ("p004", "Patricia Johnson", "MRN004234", "EN", "SNF", "YELLOW", "Draft"),
-        ("p005", "David Kim", "MRN005678", "KO", "Home", "YELLOW", "Draft"),
-        ("p006", "Mohammed Hassan", "MRN006912", "AR", "Rehab", "YELLOW", "Draft"),
-        ("p007", "Jennifer Williams", "MRN007345", "EN", "Home", "YELLOW", "Draft"),
-        ("p008", "Nguyen Tran", "MRN008789", "VI", "Home", "YELLOW", "Draft"),
-        ("p009", "Robert Brown", "MRN009123", "EN", "Rehab", "YELLOW", "Draft"),
-        ("p010", "Yuki Tanaka", "MRN010456", "JA", "Home", "YELLOW", "Draft"),
+        ("p001", "John Smith", "MRN001234", "EN", "Home", "GREEN", "Draft"),
+        ("p002", "Maria Garcia", "MRN002567", "ES", "Rehab", "GREEN", "Draft"),
+        ("p003", "Wei Chen", "MRN003891", "ZH", "Home", "GREEN", "Draft"),
+        ("p004", "Patricia Johnson", "MRN004234", "EN", "SNF", "GREEN", "Draft"),
+        ("p005", "David Kim", "MRN005678", "KO", "Home", "GREEN", "Draft"),
+        ("p006", "Mohammed Hassan", "MRN006912", "AR", "Rehab", "GREEN", "Draft"),
+        ("p007", "Jennifer Williams", "MRN007345", "EN", "Home", "GREEN", "Draft"),
+        ("p008", "Nguyen Tran", "MRN008789", "VI", "Home", "GREEN", "Draft"),
+        ("p009", "Robert Brown", "MRN009123", "EN", "Rehab", "GREEN", "Draft"),
+        ("p010", "Yuki Tanaka", "MRN010456", "JA", "Home", "GREEN", "Draft"),
     ]
 
     cursor.executemany("""
