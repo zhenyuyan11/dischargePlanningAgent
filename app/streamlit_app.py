@@ -562,13 +562,11 @@ def render_sidebar():
 # -----------------------------
 def render_header(p: Patient):
     # Patient header card (fixed above tabs)
-    st.markdown("### Patient")
+    st.markdown(f"### {p.name}")
     left, right = st.columns([3, 1])
     with left:
         st.markdown(
-            f"<span style='font-size: 2rem !important; font-weight: bold; line-height: 1.2;'>{p.name}</span>  \n"
-            f"MRN: `{p.mrn}` • Lang: `{p.language}` • Disposition: `{p.disposition}`",
-            unsafe_allow_html=True
+            f"MRN: `{p.mrn}` • Lang: `{p.language}` • Disposition: `{p.disposition}`"
         )
     with right:
         st.markdown(f"**QC:** {qc_badge(p.qc_status)} `{p.qc_status}`")
