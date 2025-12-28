@@ -584,22 +584,26 @@ def render_tabs(p: Patient):
         <style>
         /* Style the radio group container */
         div[role="radiogroup"][aria-label="Tabs"] {
-            border-bottom: 1px solid #ddd;
-            margin-bottom: -1px;
+            border-bottom: 2px solid #e0e0e0;
+            margin-bottom: 1rem;
+            padding-bottom: 0;
         }
 
         /* Hide radio circles and style labels as tabs */
         div[role="radiogroup"][aria-label="Tabs"] label {
-            padding: 12px 24px !important;
-            margin-right: 4px !important;
-            margin-bottom: 0 !important;
-            border: 1px solid #ddd !important;
-            border-bottom: 2px solid #ddd !important;
-            border-radius: 8px 8px 0 0 !important;
-            background: #f8f9fa !important;
+            padding: 14px 28px !important;
+            margin-right: 2px !important;
+            margin-bottom: -2px !important;
+            border: none !important;
+            border-bottom: 3px solid transparent !important;
+            border-radius: 0 !important;
+            background: transparent !important;
             cursor: pointer !important;
-            transition: all 0.2s !important;
+            transition: all 0.25s ease !important;
             display: inline-block !important;
+            font-size: 15px !important;
+            font-weight: 500 !important;
+            color: #666 !important;
         }
 
         /* Hide radio input circles */
@@ -612,21 +616,22 @@ def render_tabs(p: Patient):
 
         /* Selected tab style */
         div[role="radiogroup"][aria-label="Tabs"] label:has(input:checked) {
-            background: white !important;
-            border-bottom: 2px solid white !important;
+            background: transparent !important;
+            border-bottom: 3px solid #1f77b4 !important;
             color: #1f77b4 !important;
             font-weight: 600 !important;
             position: relative !important;
-            z-index: 1 !important;
         }
 
         /* Hover effects */
         div[role="radiogroup"][aria-label="Tabs"] label:hover {
-            background: #e9ecef !important;
+            background: rgba(31, 119, 180, 0.05) !important;
+            color: #333 !important;
         }
 
         div[role="radiogroup"][aria-label="Tabs"] label:has(input:checked):hover {
-            background: white !important;
+            background: rgba(31, 119, 180, 0.08) !important;
+            color: #1f77b4 !important;
         }
         </style>
     """, unsafe_allow_html=True)
