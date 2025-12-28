@@ -579,31 +579,31 @@ def render_tabs(p: Patient):
     # We emulate "active tab" with session_state + a top segmented control.
     tab_names = ["Patient Info", "Generate", "QC Review", "Plan Editor", "Finalize / Export", "Audit Log"]
 
-    # Custom CSS for tab-style radio buttons
+    # Custom CSS for card-style tabs (like reference image)
     st.markdown("""
         <style>
         /* Style the radio group container */
         div[role="radiogroup"][aria-label="Tabs"] {
-            border-bottom: 2px solid #e0e0e0;
-            margin-bottom: 1rem;
-            padding-bottom: 0;
+            margin-bottom: 1.5rem;
+            display: flex;
+            gap: 12px;
         }
 
-        /* Hide radio circles and style labels as tabs */
+        /* Card-style tabs */
         div[role="radiogroup"][aria-label="Tabs"] label {
-            padding: 14px 28px !important;
-            margin-right: 2px !important;
-            margin-bottom: -2px !important;
-            border: none !important;
-            border-bottom: 3px solid transparent !important;
-            border-radius: 0 !important;
-            background: transparent !important;
+            padding: 16px 28px !important;
+            margin-right: 0 !important;
+            margin-bottom: 0 !important;
+            border: 1px solid #e0e0e0 !important;
+            border-radius: 12px !important;
+            background: white !important;
             cursor: pointer !important;
             transition: all 0.25s ease !important;
             display: inline-block !important;
             font-size: 15px !important;
             font-weight: 500 !important;
             color: #666 !important;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08) !important;
         }
 
         /* Hide radio input circles */
@@ -616,24 +616,24 @@ def render_tabs(p: Patient):
             display: none !important;
         }
 
-        /* Selected tab style */
+        /* Selected tab style - solid blue background */
         div[role="radiogroup"][aria-label="Tabs"] label:has(input:checked) {
-            background: transparent !important;
-            border-bottom: 4px solid #1f77b4 !important;
-            color: #1f77b4 !important;
-            font-weight: 700 !important;
-            position: relative !important;
+            background: #1f77b4 !important;
+            border: 1px solid #1f77b4 !important;
+            color: white !important;
+            font-weight: 600 !important;
+            box-shadow: 0 2px 6px rgba(31, 119, 180, 0.3) !important;
         }
 
         /* Hover effects */
         div[role="radiogroup"][aria-label="Tabs"] label:hover {
-            background: rgba(31, 119, 180, 0.05) !important;
-            color: #333 !important;
+            border-color: #1f77b4 !important;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.12) !important;
         }
 
         div[role="radiogroup"][aria-label="Tabs"] label:has(input:checked):hover {
-            background: rgba(31, 119, 180, 0.08) !important;
-            color: #1f77b4 !important;
+            background: #1a6ba8 !important;
+            border-color: #1a6ba8 !important;
         }
         </style>
     """, unsafe_allow_html=True)
