@@ -608,10 +608,12 @@ def render_tabs(p: Patient):
 
         /* Hide radio input circles */
         div[role="radiogroup"][aria-label="Tabs"] input[type="radio"] {
-            opacity: 0 !important;
-            position: absolute !important;
-            width: 0 !important;
-            height: 0 !important;
+            display: none !important;
+        }
+
+        /* Also hide any radio circle divs */
+        div[role="radiogroup"][aria-label="Tabs"] label > div:first-child {
+            display: none !important;
         }
 
         /* Selected tab style */
