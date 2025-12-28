@@ -491,7 +491,7 @@ def render_sidebar():
             font-weight: 600;
             font-size: 14px;
             color: #1a1a1a;
-            margin-bottom: 4px;
+            margin-bottom: 8px;
         }
         .patient-mrn {
             font-size: 12px;
